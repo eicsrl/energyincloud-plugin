@@ -40,6 +40,10 @@ domande sull'impianto usando solo i dati del portale, collegati tramite connetto
 L'elenco degli allarmi, con il dettaglio, è nel portale EnergyInCloud. L'assistente riporta solo
 conteggi per gravità e tempo di blocco.
 
+## Guida per i clienti
+
+Pagina di onboarding per i clienti: [docs/onboarding.md](docs/onboarding.md).
+
 ## Contenuto del repository
 
 - `.claude-plugin/plugin.json`: manifesto del plugin.
