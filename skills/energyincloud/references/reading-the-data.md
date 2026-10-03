@@ -15,10 +15,11 @@ exists, there is no judgement to give.
   worth stating as an observation, with the figures; it is still not a fault you declare.
 - Fields: `energy.production` (kWh) in the energy summary; the curve in the power series.
 
-## 2. Self-consumption and autarky
+## 2. Self-consumption and self-sufficiency
 
 - `self_consumption_pct`: share of production used on site (directly or through the battery).
-- `autarky_pct`: share of consumption covered by the plant.
+- `autarky_pct`: share of consumption covered by the plant. In Italian say "autosufficienza";
+  "autarchia" only as a synonym, in the energy sense, never the historical one.
 - High export with low self-consumption is not waste: it means production exceeded what the house
   and battery could absorb. The economics tool is where exported energy is valued.
 - Fields: `self_consumption` block of the energy summary.

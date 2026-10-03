@@ -2,7 +2,7 @@
 
 L'assistente EnergyInCloud risponde alle tue domande sull'impianto solare e sull'accumulo:
 produzione, consumo, autoconsumo, risparmio, batteria, collegamento e qualità dei dati, report del
-periodo. Ti spiega anche cosa significa un dato o un termine, come autoconsumo, autarchia o stato di
+periodo. Ti spiega anche cosa significa un dato o un termine, come autoconsumo, autosufficienza o stato di
 salute della batteria.
 
 Non configura l'impianto e non risponde su impianti che non sono tuoi. Non fa diagnosi, non indica

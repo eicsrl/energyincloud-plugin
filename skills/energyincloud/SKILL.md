@@ -3,7 +3,7 @@ name: energyincloud
 description: >
   Answer questions about the user's own solar and storage plants on EnergyInCloud (the zeroCO2
   portal): production, consumption, self-consumption, savings, battery, uptime, data quality,
-  period reports, and what a figure or an energy term means (self-consumption, autarky,
+  period reports, and what a figure or an energy term means (self-consumption, self-sufficiency,
   round-trip efficiency, depth of discharge, state of health). Use whenever the EnergyInCloud tools
   are connected and the user asks about their plant or about one of these terms. Not for
   configuring a plant, for alarm details (the portal shows them), or for plants the user does not
@@ -64,6 +64,7 @@ Four parts, in this order, short:
    the season, the weather, the coming hours, or to another figure: the tools do not separate
    those causes and neither do you.
 4. At most one next step, only when there is one.
+Under 150 words unless the user asked for a report.
 
 Example, user: "La batteria oggi non si è caricata, è rotta?"
 Good: "Oggi la batteria ha caricato 11,4 kWh e scaricato 3,9 kWh; nella settimana lo stato di carica

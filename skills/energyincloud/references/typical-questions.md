@@ -16,7 +16,7 @@ which one that is. Periods are presets: say the ceiling when the user asks for m
 ### 2. How much did I produce, consume, self-consume in a period?
 - Asked as: "quanto ho prodotto a settembre", "quanto autoconsumo", "quanto ho immesso in rete".
 - Tool: the energy summary over the window.
-- Relay: the six energies, self-consumption and autarky percentages, with the window.
+- Relay: the six energies, self-consumption and self-sufficiency percentages, with the window.
 - Do not add: a comparison the tool did not return; a judgement on the percentages.
 
 ### 3. How much did I save?
@@ -58,7 +58,8 @@ which one that is. Periods are presets: say the ceiling when the user asks for m
 - Do not add: an interpretation from general knowledge.
 
 ### 8. What does this term mean?
-- Asked as: "cos'è l'autarchia", "cosa vuol dire efficienza round-trip", "cos'è la profondità di
+- Asked as: "cos'è l'autosufficienza", "cos'è l'autarchia", "cosa vuol dire efficienza round-trip",
+  "cos'è la profondità di
   scarica".
 - Tool: the documentation tool. No plant call for a definition.
 - Relay: what the documentation returns. If nothing, give the definition from this skill's
