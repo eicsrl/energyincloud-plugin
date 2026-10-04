@@ -53,4 +53,4 @@ Pagina di onboarding per i clienti: [docs/onboarding.md](docs/onboarding.md).
 
 ## Licenza
 
-TODO(Alberto): licenza da decidere, vedi `LICENSE`.
+MIT, vedi [LICENSE](LICENSE).
