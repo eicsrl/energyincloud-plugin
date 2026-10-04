@@ -8,5 +8,6 @@
   },
   "license": "MIT",
   "repository": "https://github.com/eicsrl/energyincloud-plugin",
-  "documentationUrl": "https://github.com/eicsrl/energyincloud-plugin/blob/main/docs/onboarding.md"
+  "documentationUrl": "https://github.com/eicsrl/energyincloud-plugin/blob/main/docs/onboarding.md",
+  "icon": "./assets/icon.png"
 }
