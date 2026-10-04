@@ -6,5 +6,7 @@
   "author": {
     "name": "EnergyInCloud (eicsrl)"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/eicsrl/energyincloud-plugin",
+  "documentationUrl": "https://github.com/eicsrl/energyincloud-plugin/blob/main/docs/onboarding.md"
 }
