@@ -42,7 +42,12 @@ conteggi per gravità e tempo di blocco.
 
 ## Guida per i clienti
 
-Pagina di onboarding per i clienti: [docs/onboarding.md](docs/onboarding.md).
+Documentazione per i clienti: <https://mycloud.energy/documentazione/> (testo sorgente in
+`docs/onboarding.md`).
+
+## Assistenza
+
+Per contattare l'assistenza: <https://mycloud.energy/assistenza/>. Indica l'impianto e il periodo a cui ti riferisci.
 
 ## Contenuto del repository
 

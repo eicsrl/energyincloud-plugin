@@ -26,3 +26,7 @@ Incolla una di queste nella chat, senza altro:
 
 L'elenco degli allarmi e i loro dettagli sono nel portale. L'assistente ti dà solo il numero per
 gravità e il tempo di blocco.
+
+## Assistenza
+
+Per contattare l'assistenza: <https://mycloud.energy/assistenza/>. Indica l'impianto e il periodo a cui ti riferisci.
