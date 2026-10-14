@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.energyincloud/energyincloud",
+  "title": "EnergyInCloud",
+  "description": "Ask about your solar and storage plant: production, consumption, battery, savings, reports.",
+  "version": "0.1.0",
+  "websiteUrl": "https://mycloud.energy/",
+  "repository": {
+    "url": "https://github.com/eicsrl/energyincloud-plugin",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.cloud.energyincloud.com/mcp"
+    }
+  ]
+}
