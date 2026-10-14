@@ -35,6 +35,11 @@ domande sull'impianto usando solo i dati del portale, collegati tramite connetto
 - Dalla directory dei plugin di ChatGPT.
 - Il caricamento manuale della skill è possibile solo su piani Business ed Enterprise.
 
+### Microsoft 365 Copilot
+
+- Dall'Agent Store di Microsoft 365 Copilot, quando sarà disponibile: aggiungi l'agente EnergyInCloud
+  e accedi con il tuo account EnergyInCloud.
+
 ## Allarmi
 
 L'elenco degli allarmi, con il dettaglio, è nel portale EnergyInCloud. L'assistente riporta solo
@@ -54,6 +59,7 @@ Per contattare l'assistenza: <https://mycloud.energy/assistenza/>. Indica l'impi
 - `.claude-plugin/plugin.json`: manifesto del plugin.
 - `.mcp.json`: server MCP remoto (streamable HTTP, OAuth lato server).
 - `skills/energyincloud/`: la skill (`SKILL.md` e `references/`).
+- `copilot/`: l'agente per Microsoft 365 Copilot (progetto Agents Toolkit; istruzioni derivate dalla skill).
 - `tests/`: test di contratto della skill (`uv run pytest`).
 
 ## Licenza

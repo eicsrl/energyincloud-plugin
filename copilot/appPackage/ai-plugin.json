@@ -1,0 +1,24 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "EnergyInCloud",
+    "namespace": "energyincloud",
+    "description_for_human": "Data of your EnergyInCloud solar and storage plants.",
+    "description_for_model": "EnergyInCloud plant data for the plants the signed-in user owns, installed or distributes: plant lookup, energy summary, power series, battery statistics, plant KPIs, energy balance check, economics and period reports, glossary and documentation search. Installer accounts also get fleet connectivity, fleet data quality, post-installation check and fleet status report.",
+    "privacy_policy_url": "https://mycloud.energy/privacy/",
+    "legal_info_url": "https://mycloud.energy/termini/",
+    "functions": [],
+    "runtimes": [
+        {
+            "type": "RemoteMCPServer",
+            "spec": {
+                "url": "https://mcp.cloud.energyincloud.com/mcp"
+            },
+            "run_for_functions": ["*"],
+            "auth": {
+                "type": "OAuthPluginVault",
+                "reference_id": "${{MCP_DA_AUTH_ID_ENERGYINCLOUD}}"
+            }
+        }
+    ]
+}

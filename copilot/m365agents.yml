@@ -1,0 +1,79 @@
+# yaml-language-server: $schema=https://aka.ms/m365-agents-toolkits/v1.13/yaml.schema.json
+# copilot/m365agents.yml
+# ----------------------
+# Agents Toolkit project for the Microsoft 365 Copilot agent: provision sideloads it, publish sends it to the tenant catalog.
+version: v1.13
+
+environmentFolderPath: ./env
+
+provision:
+  - uses: teamsApp/create
+    with:
+      name: EnergyInCloud${{APP_NAME_SUFFIX}}
+    writeToEnvironmentFile:
+      teamsAppId: TEAMS_APP_ID
+
+  # Static client, not DCR: Microsoft needs a client_secret at registration and our DCR issues public clients only.
+  # The client is created with the AS admin API, redirect https://teams.microsoft.com/api/platform/v1.0/oAuthRedirect.
+  - uses: oauth/register
+    with:
+      name: energyincloud-oauth
+      appId: ${{TEAMS_APP_ID}}
+      flow: authorizationCode
+      identityProvider: Custom
+      authorizationUrl: https://k8s.prod.cloud.energyincloud.com/webapp/oauth/authorize
+      tokenUrl: https://k8s.prod.cloud.energyincloud.com/webapp/oauth/token
+      refreshUrl: https://k8s.prod.cloud.energyincloud.com/webapp/oauth/token
+      baseUrl: https://mcp.cloud.energyincloud.com/mcp
+      clientId: ${{OAUTH_CLIENT_ID}}
+      clientSecret: ${{SECRET_OAUTH_CLIENT_SECRET}}
+      scope: ${{OAUTH_SCOPE}}
+      isPKCEEnabled: true
+      applicableToApps: AnyApp
+      targetAudience: AnyTenant
+    writeToEnvironmentFile:
+      configurationId: MCP_DA_AUTH_ID_ENERGYINCLOUD
+
+  - uses: teamsApp/zipAppPackage
+    with:
+      manifestPath: ./appPackage/manifest.json
+      outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      outputFolder: ./appPackage/build
+
+  - uses: teamsApp/validateAppPackage
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: teamsApp/update
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: copilotAgent/publish
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+    writeToEnvironmentFile:
+      titleId: M365_TITLE_ID
+      appId: M365_APP_ID
+
+publish:
+  - uses: teamsApp/zipAppPackage
+    with:
+      manifestPath: ./appPackage/manifest.json
+      outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      outputFolder: ./appPackage/build
+
+  - uses: teamsApp/validateAppPackage
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: teamsApp/update
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: copilotAgent/publish
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      scope: tenant
+    writeToEnvironmentFile:
+      titleId: M365_PUBLISHED_TITLE_ID
+      appId: M365_PUBLISHED_APP_ID

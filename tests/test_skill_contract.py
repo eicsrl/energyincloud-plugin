@@ -1,7 +1,7 @@
 """
 tests/test_skill_contract.py
 ----------------------------
-Contract of the public skill: frontmatter, size, local links, no vendor tokens.
+Contract of the public skill and the Copilot agent instructions: frontmatter, size, local links, no vendor tokens.
 """
 import re
 from pathlib import Path
@@ -11,6 +11,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 SKILL_DIR = ROOT / "skills" / "energyincloud"
 SKILL = SKILL_DIR / "SKILL.md"
+COPILOT_INSTRUCTIONS = ROOT / "copilot" / "appPackage" / "instruction.txt"
 
 # Copied from triage-api origin/stage src/app/knowledge/build.py (VENDOR_TOKENS, the I5 dictionary).
 VENDOR_TOKENS = (
@@ -32,7 +33,7 @@ def _frontmatter_keys(text: str) -> set[str]:
 
 
 def _public_texts() -> list[Path]:
-    return sorted(SKILL_DIR.rglob("*.md")) + [ROOT / "README.md"]
+    return sorted(SKILL_DIR.rglob("*.md")) + [ROOT / "README.md", COPILOT_INSTRUCTIONS]
 
 
 def test_frontmatter_keys_exactly_name_and_description():
@@ -41,6 +42,11 @@ def test_frontmatter_keys_exactly_name_and_description():
 
 def test_skill_under_500_lines():
     assert len(SKILL.read_text(encoding="utf-8").splitlines()) < 500
+
+
+def test_copilot_instructions_within_limit():
+    # Declarative agent manifest 1.8: instructions are 8,000 characters or less.
+    assert len(COPILOT_INSTRUCTIONS.read_text(encoding="utf-8")) <= 8000
 
 
 def test_local_links_resolve():
