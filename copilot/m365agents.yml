@@ -13,24 +13,17 @@ provision:
     writeToEnvironmentFile:
       teamsAppId: TEAMS_APP_ID
 
-  # Static client, not DCR: Microsoft needs a client_secret at registration and our DCR issues public clients only.
-  # The client is created with the AS admin API, redirect https://teams.microsoft.com/api/platform/v1.0/oAuthRedirect.
-  - uses: oauth/register
+  # The AS must return a client_secret at registration: Microsoft rejects public DCR clients.
+  # targetAudience defaults to HomeTenant: AnyTenant keeps the registration usable from every tenant.
+  - uses: dcr/register
     with:
-      name: energyincloud-oauth
+      name: energyincloud-dcr
       appId: ${{TEAMS_APP_ID}}
-      flow: authorizationCode
-      identityProvider: Custom
-      authorizationUrl: https://k8s.prod.cloud.energyincloud.com/webapp/oauth/authorize
-      tokenUrl: https://k8s.prod.cloud.energyincloud.com/webapp/oauth/token
-      refreshUrl: https://k8s.prod.cloud.energyincloud.com/webapp/oauth/token
-      baseUrl: https://mcp.cloud.energyincloud.com/mcp
-      clientId: ${{OAUTH_CLIENT_ID}}
-      clientSecret: ${{SECRET_OAUTH_CLIENT_SECRET}}
-      scope: ${{OAUTH_SCOPE}}
-      isPKCEEnabled: true
       applicableToApps: AnyApp
       targetAudience: AnyTenant
+      wellKnownAuthorizationServer: https://k8s.prod.cloud.energyincloud.com/webapp/.well-known/oauth-authorization-server
+      targetUrlsShouldStartWith:
+        - https://mcp.cloud.energyincloud.com/mcp
     writeToEnvironmentFile:
       configurationId: MCP_DA_AUTH_ID_ENERGYINCLOUD
 

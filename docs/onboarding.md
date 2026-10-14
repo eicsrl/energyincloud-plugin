@@ -44,12 +44,10 @@ aggiornamenti dell'assistente.
 - Serve un ambiente Copilot Studio; l'agente lo crea chi ha la licenza Copilot Studio. Chi lo usa
   poi non ha bisogno di licenze aggiuntive.
 - Nell'agente apri **Tools** → **Add a tool** → **New tool** → **Model Context Protocol**.
-  Inserisci nome, descrizione e indirizzo; come autenticazione scegli **OAuth 2.0** → **Manual**.
-- Nei campi di **Manual** inserisci i dati del client che EnergyInCloud ti fornisce su richiesta
-  all'assistenza: ID e segreto del client, indirizzi di autorizzazione e di token e scopes.
-- Premi **Create**: il passaggio mostra un indirizzo di callback. Comunicalo all'assistenza, che lo
-  abilita sul client; solo dopo, in **Create a new connection**, accedi con il tuo account
-  EnergyInCloud e premi **Add to agent**.
+  Inserisci nome, descrizione e indirizzo; come autenticazione scegli **OAuth 2.0** → **Dynamic
+  discovery**.
+- Premi **Create**, poi in **Create a new connection** accedi con il tuo account EnergyInCloud e premi
+  **Add to agent**.
 - Per usarlo in Teams e Microsoft 365 Copilot pubblica l'agente (**Channels** → **Teams and Microsoft
   Copilot**). Per tutta l'organizzazione serve l'approvazione dell'amministratore Microsoft 365, e le
   politiche di protezione dei dati dell'organizzazione devono consentire il connettore.
