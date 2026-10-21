@@ -1,7 +1,9 @@
 """
 tests/test_skill_contract.py
 ----------------------------
-Contract of the public skill: frontmatter, size, local links, no vendor tokens.
+Contract of the public skills: frontmatter, size, local links, no vendor tokens, and byte
+identity with the generated tree in triage-api (`plugins/energyincloud/`) when that checkout
+sits next to this repository.
 """
 import re
 from pathlib import Path
@@ -9,8 +11,11 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILL_DIR = ROOT / "skills" / "energyincloud"
-SKILL = SKILL_DIR / "SKILL.md"
+SKILLS_DIR = ROOT / "skills"
+COMMANDS_DIR = ROOT / "commands"
+SKILLS = sorted(p for p in SKILLS_DIR.iterdir() if (p / "SKILL.md").is_file())
+# The generated tree these files are copied from; absent on a clone without the sibling.
+GENERATED = ROOT.parent / "triage-api" / "plugins" / "energyincloud"
 
 # Copied from triage-api origin/stage src/app/knowledge/build.py (VENDOR_TOKENS, the I5 dictionary).
 VENDOR_TOKENS = (
@@ -32,24 +37,41 @@ def _frontmatter_keys(text: str) -> set[str]:
 
 
 def _public_texts() -> list[Path]:
-    return sorted(SKILL_DIR.rglob("*.md")) + [ROOT / "README.md"]
+    return sorted(ROOT.glob("skills/**/*.md")) + sorted(COMMANDS_DIR.glob("*.md")) + [ROOT / "README.md"]
 
 
-def test_frontmatter_keys_exactly_name_and_description():
-    assert _frontmatter_keys(SKILL.read_text(encoding="utf-8")) == {"name", "description"}
+def _tree(root: Path) -> dict[str, bytes]:
+    return {p.relative_to(root).as_posix(): p.read_bytes() for p in sorted(root.rglob("*")) if p.is_file()}
 
 
-def test_skill_under_500_lines():
-    assert len(SKILL.read_text(encoding="utf-8").splitlines()) < 500
+def test_three_public_skills_one_per_role():
+    assert [p.name for p in SKILLS] == [
+        "energyincloud-customer",
+        "energyincloud-distributor",
+        "energyincloud-installer",
+    ]
 
 
-def test_local_links_resolve():
-    text = SKILL.read_text(encoding="utf-8")
+@pytest.mark.parametrize("skill", SKILLS, ids=lambda p: p.name)
+def test_frontmatter_keys_exactly_name_and_description(skill: Path):
+    text = (skill / "SKILL.md").read_text(encoding="utf-8")
+    assert _frontmatter_keys(text) == {"name", "description"}
+    assert f"name: {skill.name}\n" in text
+
+
+@pytest.mark.parametrize("skill", SKILLS, ids=lambda p: p.name)
+def test_skill_under_500_lines(skill: Path):
+    assert len((skill / "SKILL.md").read_text(encoding="utf-8").splitlines()) < 500
+
+
+@pytest.mark.parametrize("skill", SKILLS, ids=lambda p: p.name)
+def test_local_links_resolve(skill: Path):
+    text = (skill / "SKILL.md").read_text(encoding="utf-8")
     md_links = re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", text)
     code_paths = re.findall(r"`(references/[^`\s]+)`", text)
     targets = [t for t in md_links if not re.match(r"^[a-z]+:", t)] + code_paths
     assert code_paths, "SKILL.md is expected to reference its references/ files"
-    missing = [t for t in targets if not (SKILL_DIR / t).is_file()]
+    missing = [t for t in targets if not (skill / t).is_file()]
     assert not missing, f"unresolved links: {missing}"
 
 
@@ -57,3 +79,10 @@ def test_local_links_resolve():
 def test_no_vendor_tokens(path: Path):
     hits = VENDOR_RE.findall(path.read_text(encoding="utf-8"))
     assert not hits, f"vendor tokens in {path.name}: {hits}"
+
+
+def test_skills_and_commands_match_the_generated_tree():
+    if not GENERATED.is_dir():
+        pytest.skip("triage-api checkout not present next to this repo")
+    assert _tree(SKILLS_DIR) == _tree(GENERATED / "skills")
+    assert _tree(COMMANDS_DIR) == _tree(GENERATED / "commands")

@@ -1,7 +1,9 @@
 # EnergyInCloud
 
-Assistente per chi ha un impianto solare con accumulo gestito da EnergyInCloud: risponde alle
-domande sull'impianto usando solo i dati del portale, collegati tramite connettore.
+Assistente per chi ha un impianto solare con accumulo gestito da EnergyInCloud, e per chi lo
+installa o lo distribuisce: risponde alle domande sugli impianti usando solo i dati del portale,
+collegati tramite connettore. Tre skill, una per ruolo (cliente, installatore, distributore): si
+attiva quella del tuo account.
 
 ## Cosa fa
 
@@ -21,10 +23,11 @@ domande sull'impianto usando solo i dati del portale, collegati tramite connetto
 
 ### Claude
 
-- Quando sarà disponibile nella directory di Claude: installa il plugin e autorizza il
-  connettore.
-- Oggi, in due passi:
-  1. comprimi in ZIP la cartella `skills/energyincloud` e caricala in Customize → Skills;
+- Dalla directory di Claude: installa il plugin e collega il connettore dalla sua scheda
+  Connectors con il tuo account EnergyInCloud.
+- Senza directory, in due passi:
+  1. scarica la skill del tuo ruolo dal portale EnergyInCloud, dopo il login, all'indirizzo
+     `/api/assistant/skill.zip`, e caricala in Customize → Skills;
   2. aggiungi il connettore personalizzato con
      [questo link](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=EnergyInCloud&connectorUrl=https%3A%2F%2Fmcp.cloud.energyincloud.com%2Fmcp)
      (nome `EnergyInCloud`, URL `https://mcp.cloud.energyincloud.com/mcp`) e accedi con il tuo
@@ -33,7 +36,13 @@ domande sull'impianto usando solo i dati del portale, collegati tramite connetto
 ### ChatGPT
 
 - Dalla directory dei plugin di ChatGPT.
-- Il caricamento manuale della skill è possibile solo su piani Business ed Enterprise.
+- Su piani Business ed Enterprise puoi anche caricare la skill del tuo ruolo, scaricata dal
+  portale come sopra.
+
+### Mistral e altri assistenti
+
+- Connettore: URL `https://mcp.cloud.energyincloud.com/mcp`, accesso con il tuo account.
+- Skill: quella del tuo ruolo, scaricata dal portale come sopra.
 
 ## Allarmi
 
@@ -53,8 +62,11 @@ Per contattare l'assistenza: <https://mycloud.energy/assistenza/>. Indica l'impi
 
 - `.claude-plugin/plugin.json`: manifesto del plugin.
 - `.mcp.json`: server MCP remoto (streamable HTTP, OAuth lato server).
-- `skills/energyincloud/`: la skill (`SKILL.md` e `references/`).
-- `tests/`: test di contratto della skill (`uv run pytest`).
+- `skills/<ruolo>/`: le tre skill (`SKILL.md` e `references/`), e `commands/`: le richieste
+  pronte. Sono copie dell'albero generato in `triage-api/plugins/energyincloud/`: si modificano
+  lì (`triage-api/src/app/assistant/`), mai qui.
+- `tests/`: test di contratto delle skill, compresa l'identità con l'albero generato quando
+  `triage-api` è accanto a questo repository (`uv run pytest`).
 
 ## Licenza
 
