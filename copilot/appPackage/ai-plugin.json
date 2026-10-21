@@ -12,7 +12,7 @@
         {
             "type": "RemoteMCPServer",
             "spec": {
-                "url": "https://mcp.cloud.energyincloud.com/mcp"
+                "url": "${{MCP_SERVER_URL}}"
             },
             "run_for_functions": ["*"],
             "auth": {

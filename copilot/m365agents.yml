@@ -21,9 +21,9 @@ provision:
       appId: ${{TEAMS_APP_ID}}
       applicableToApps: AnyApp
       targetAudience: AnyTenant
-      wellKnownAuthorizationServer: https://k8s.prod.cloud.energyincloud.com/webapp/.well-known/oauth-authorization-server
+      wellKnownAuthorizationServer: ${{AUTH_SERVER_METADATA_URL}}
       targetUrlsShouldStartWith:
-        - https://mcp.cloud.energyincloud.com/mcp
+        - ${{MCP_SERVER_URL}}
     writeToEnvironmentFile:
       configurationId: MCP_DA_AUTH_ID_ENERGYINCLOUD
 
@@ -70,3 +70,4 @@ publish:
     writeToEnvironmentFile:
       titleId: M365_PUBLISHED_TITLE_ID
       appId: M365_PUBLISHED_APP_ID
+projectId: 727e5630-c740-4176-bff8-041bb4224492
