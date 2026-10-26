@@ -44,6 +44,11 @@ attiva quella del tuo account.
 - Connettore: URL `https://mcp.cloud.energyincloud.com/mcp`, accesso con il tuo account.
 - Skill: quella del tuo ruolo, scaricata dal portale come sopra.
 
+### Microsoft 365 Copilot
+
+- Dall'Agent Store di Microsoft 365 Copilot, quando sarà disponibile: aggiungi l'agente EnergyInCloud
+  e accedi con il tuo account EnergyInCloud.
+
 ## Allarmi
 
 L'elenco degli allarmi, con il dettaglio, è nel portale EnergyInCloud. L'assistente riporta solo
@@ -62,11 +67,12 @@ Per contattare l'assistenza: <https://mycloud.energy/assistenza/>. Indica l'impi
 
 - `.claude-plugin/plugin.json`: manifesto del plugin.
 - `.mcp.json`: server MCP remoto (streamable HTTP, OAuth lato server).
-- `skills/<ruolo>/`: le tre skill (`SKILL.md` e `references/`), e `commands/`: le richieste
-  pronte. Sono copie dell'albero generato in `triage-api/plugins/energyincloud/`: si modificano
-  lì (`triage-api/src/app/assistant/`), mai qui.
-- `tests/`: test di contratto delle skill, compresa l'identità con l'albero generato quando
-  `triage-api` è accanto a questo repository (`uv run pytest`).
+- `skills/<ruolo>/`: le tre skill (`SKILL.md` e `references/`), `commands/`: le richieste
+  pronte, e `copilot/appPackage/instruction.txt`: le istruzioni dell'agente per Microsoft 365
+  Copilot (progetto Agents Toolkit in `copilot/`). Sono copie dell'albero generato in
+  `triage-api/plugins/energyincloud/`: si modificano lì (`triage-api/src/app/assistant/`), mai qui.
+- `tests/`: test di contratto delle skill e delle istruzioni Copilot, compresa l'identità con
+  l'albero generato quando `triage-api` è accanto a questo repository (`uv run pytest`).
 
 ## Licenza
 

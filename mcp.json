@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "energyincloud": {
+      "url": "https://mcp.cloud.energyincloud.com/mcp"
+    }
+  }
+}

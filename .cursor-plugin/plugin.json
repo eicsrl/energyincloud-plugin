@@ -1,0 +1,13 @@
+{
+  "name": "energyincloud",
+  "description": "Ask about your solar and storage plant: production, consumption, self-consumption, savings, battery, connectivity and period reports, answered only from EnergyInCloud data.",
+  "version": "0.1.0",
+  "author": {
+    "name": "EnergyInCloud (eicsrl)"
+  },
+  "license": "MIT",
+  "homepage": "https://mycloud.energy/",
+  "repository": "https://github.com/eicsrl/energyincloud-plugin",
+  "keywords": ["solar", "battery", "energy", "photovoltaic", "mcp"],
+  "logo": "assets/icon.png"
+}

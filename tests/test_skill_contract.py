@@ -1,9 +1,9 @@
 """
 tests/test_skill_contract.py
 ----------------------------
-Contract of the public skills: frontmatter, size, local links, no vendor tokens, and byte
-identity with the generated tree in triage-api (`plugins/energyincloud/`) when that checkout
-sits next to this repository.
+Contract of the public skills and the Copilot agent instructions: frontmatter, size, local
+links, no vendor tokens, and byte identity with the generated tree in triage-api
+(`plugins/energyincloud/`) when that checkout sits next to this repository.
 """
 import re
 from pathlib import Path
@@ -13,6 +13,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = ROOT / "skills"
 COMMANDS_DIR = ROOT / "commands"
+COPILOT_INSTRUCTIONS = ROOT / "copilot" / "appPackage" / "instruction.txt"
 SKILLS = sorted(p for p in SKILLS_DIR.iterdir() if (p / "SKILL.md").is_file())
 # The generated tree these files are copied from; absent on a clone without the sibling.
 GENERATED = ROOT.parent / "triage-api" / "plugins" / "energyincloud"
@@ -37,7 +38,11 @@ def _frontmatter_keys(text: str) -> set[str]:
 
 
 def _public_texts() -> list[Path]:
-    return sorted(ROOT.glob("skills/**/*.md")) + sorted(COMMANDS_DIR.glob("*.md")) + [ROOT / "README.md"]
+    return (
+        sorted(ROOT.glob("skills/**/*.md"))
+        + sorted(COMMANDS_DIR.glob("*.md"))
+        + [ROOT / "README.md", COPILOT_INSTRUCTIONS]
+    )
 
 
 def _tree(root: Path) -> dict[str, bytes]:
@@ -64,6 +69,11 @@ def test_skill_under_500_lines(skill: Path):
     assert len((skill / "SKILL.md").read_text(encoding="utf-8").splitlines()) < 500
 
 
+def test_copilot_instructions_within_limit():
+    # Declarative agent manifest 1.8: instructions are 8,000 characters or less.
+    assert len(COPILOT_INSTRUCTIONS.read_text(encoding="utf-8")) <= 8000
+
+
 @pytest.mark.parametrize("skill", SKILLS, ids=lambda p: p.name)
 def test_local_links_resolve(skill: Path):
     text = (skill / "SKILL.md").read_text(encoding="utf-8")
@@ -81,8 +91,9 @@ def test_no_vendor_tokens(path: Path):
     assert not hits, f"vendor tokens in {path.name}: {hits}"
 
 
-def test_skills_and_commands_match_the_generated_tree():
+def test_skills_commands_and_copilot_match_the_generated_tree():
     if not GENERATED.is_dir():
         pytest.skip("triage-api checkout not present next to this repo")
     assert _tree(SKILLS_DIR) == _tree(GENERATED / "skills")
     assert _tree(COMMANDS_DIR) == _tree(GENERATED / "commands")
+    assert COPILOT_INSTRUCTIONS.read_bytes() == (GENERATED / "copilot" / "instruction.txt").read_bytes()

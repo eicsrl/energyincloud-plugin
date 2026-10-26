@@ -1,0 +1,35 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.8/schema.json",
+    "version": "v1.8",
+    "name": "EnergyInCloud${{APP_NAME_SUFFIX}}",
+    "description": "Answers questions about the solar and storage plants you own or installed on EnergyInCloud: production, consumption, self-consumption, savings, battery, connectivity, data quality and period reports, and explains energy terms. Figures come only from EnergyInCloud data.",
+    "instructions": "$[file('instruction.txt')]",
+    "conversation_starters": [
+        {
+            "title": "Today",
+            "text": "How is my plant doing today?"
+        },
+        {
+            "title": "Last month",
+            "text": "How much did my plant produce and self-consume last month?"
+        },
+        {
+            "title": "Savings",
+            "text": "How much did I save with my plant this month?"
+        },
+        {
+            "title": "Battery",
+            "text": "How did my battery work this week?"
+        },
+        {
+            "title": "Energy terms",
+            "text": "What is the difference between self-consumption and self-sufficiency?"
+        }
+    ],
+    "actions": [
+        {
+            "id": "energyincloudMcp",
+            "file": "ai-plugin.json"
+        }
+    ]
+}
